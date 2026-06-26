@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import sequelize from '#config/database.js';
+import seedDatabase from '#seed.js';
 import potionRoutes from '#routes/potion.routes.js';
 
 dotenv.config();
@@ -24,6 +25,7 @@ async function startServer() {
     console.log('Database connected');
 
     await sequelize.sync();
+    await seedDatabase();
 
     app.listen(PORT, () => {
       console.log(`Server up and running at http://localhost:${PORT}`);
